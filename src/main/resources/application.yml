@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: Level2PreExamTaskApplication
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgresachyl1
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: gadjetstore
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
+    api-docs:
+      path: /v3/api-docs
+server:
+  port: 8082
