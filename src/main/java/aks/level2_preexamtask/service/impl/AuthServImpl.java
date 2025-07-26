@@ -8,8 +8,9 @@ import aks.level2_preexamtask.dto.authDto.request.SignUpRequest;
 import aks.level2_preexamtask.entities.User;
 import aks.level2_preexamtask.enums.Role;
 import aks.level2_preexamtask.exceptions.AlreadyExistException;
-import aks.level2_preexamtask.mapper.SignInRequestMapper;
-import aks.level2_preexamtask.mapper.SignUpRequestMapper;
+
+import aks.level2_preexamtask.mapper.auth.SignInRequestMapperr;
+import aks.level2_preexamtask.mapper.auth.SignUpRequestMapperr;
 import aks.level2_preexamtask.repositories.UserRepo;
 import aks.level2_preexamtask.service.AuthService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 
@@ -30,20 +30,19 @@ public class AuthServImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authManager;
     private final JwtUtil jwtUtil;
-    private final SignInRequestMapper signInRequestMapper;
-    private final SignUpRequestMapper signUpRequestMapper;
-
+    private final  SignInRequestMapperr signInRequestMapper;
+  private final   SignUpRequestMapperr signUpRequestMapper;
     public AuthServImpl(UserRepo userRepository, PasswordEncoder passwordEncoder,
                         AuthenticationManager authManager, JwtUtil jwtUtil,
-                        SignInRequestMapper signInRequestMapper,
-                        SignUpRequestMapper signUpRequestMapper) {
+                        SignInRequestMapperr signInRequestMapper, SignUpRequestMapperr signUpRequestMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authManager = authManager;
         this.jwtUtil = jwtUtil;
-
         this.signInRequestMapper = signInRequestMapper;
         this.signUpRequestMapper = signUpRequestMapper;
+
+
     }
 
 
