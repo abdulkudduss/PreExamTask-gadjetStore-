@@ -1,9 +1,12 @@
 package aks.level2_preexamtask.config;
 
 import aks.level2_preexamtask.entities.User;
+import aks.level2_preexamtask.exceptions.NotFoundException;
+import aks.level2_preexamtask.repositories.UserRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +19,11 @@ import java.util.Map;
 @Component
 public class JwtUtil {
     private final String SECRET_KEY = "secretF3Q9dLmVh64XxpWqCZcRksUehJu2BtTnKkEq0aQJxzX7MsBkg3YyZTkk1vTT";
+     private  final UserRepo repo;
+
+    public JwtUtil(UserRepo repo) {
+        this.repo = repo;
+    }
 
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
@@ -56,5 +64,11 @@ public class JwtUtil {
         Date expiration = Jwts.parser().setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token).getBody().getExpiration();
         return expiration.before(new Date());
+    }
+    public User getUserViaToken (){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        return repo.findUserByEmail(email).orElseThrow(() ->
+                new NotFoundException(String.format("User with  email %s not found!", email)));
     }
 }

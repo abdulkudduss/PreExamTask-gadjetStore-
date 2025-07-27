@@ -3,6 +3,7 @@ package aks.level2_preexamtask.service.impl;
 import aks.level2_preexamtask.dto.SimpleResponse;
 import aks.level2_preexamtask.dto.productDto.ProductRequest;
 import aks.level2_preexamtask.dto.productDto.ProductResponseForGetAll;
+import aks.level2_preexamtask.dto.productDto.ProductResponseForGetById;
 import aks.level2_preexamtask.entities.Product;
 import aks.level2_preexamtask.enums.Category;
 import aks.level2_preexamtask.exceptions.NotFoundException;
@@ -11,6 +12,7 @@ import aks.level2_preexamtask.mapper.product.ProductResponseMapper;
 import aks.level2_preexamtask.repositories.BrandRepo;
 import aks.level2_preexamtask.repositories.ProductRepo;
 import aks.level2_preexamtask.service.ProductServ;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -78,4 +80,23 @@ public class ProductServiceImpl implements ProductServ {
         return pageResult.map(productResponseMapper::toResponseForGetAll);
 
     }
+
+    @Override
+    @Transactional
+    public ProductResponseForGetById getProductById(Long id) {
+        // Сначала загружаем Product без коллекций
+        Product product = productRepo.findById(id).orElseThrow(() ->
+                new NotFoundException("Product with id: " + id + " does not exist"));
+
+        // Загружаем comments и привязываем к продукту
+        productRepo.fetchProductWithComments(id).ifPresent(p -> product.setComments(p.getComments()));
+
+        // Загружаем favorites и привязываем к продукту
+        productRepo.fetchProductWithFavorites(id).ifPresent(p -> product.setFavorites(p.getFavorites()));
+
+        // Маппим на DTO
+        return productResponseMapper.toResponseForGetByID(product);
+    }
+
+
 }

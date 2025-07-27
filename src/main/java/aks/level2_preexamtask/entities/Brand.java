@@ -1,5 +1,6 @@
 package aks.level2_preexamtask.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,5 +21,6 @@ public class Brand {
     String name;
     String image;
     @OneToMany(mappedBy = "brand")
+    @JsonIgnore
     List<Product> products;
 }

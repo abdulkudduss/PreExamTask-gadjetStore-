@@ -3,6 +3,7 @@ package aks.level2_preexamtask.api.product;
 import aks.level2_preexamtask.dto.SimpleResponse;
 import aks.level2_preexamtask.dto.productDto.ProductRequest;
 import aks.level2_preexamtask.dto.productDto.ProductResponseForGetAll;
+import aks.level2_preexamtask.dto.productDto.ProductResponseForGetById;
 import aks.level2_preexamtask.entities.Product;
 import aks.level2_preexamtask.enums.Category;
 import aks.level2_preexamtask.enums.Role;
@@ -46,4 +47,9 @@ public class ProductApi {
     ) {
         return productServ.getAll(categories, minPrice, maxPrice, page, size, sortBy, order);
     }
+@GetMapping("/product/{id}")
+    public ProductResponseForGetById getProduct(@PathVariable Long id){
+        return productServ.getProductById(id);
+    }
+
 }

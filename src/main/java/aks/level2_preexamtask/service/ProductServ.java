@@ -3,6 +3,7 @@ package aks.level2_preexamtask.service;
 import aks.level2_preexamtask.dto.SimpleResponse;
 import aks.level2_preexamtask.dto.productDto.ProductRequest;
 import aks.level2_preexamtask.dto.productDto.ProductResponseForGetAll;
+import aks.level2_preexamtask.dto.productDto.ProductResponseForGetById;
 import aks.level2_preexamtask.enums.Category;
 import org.springframework.data.domain.Page;
 
@@ -16,4 +17,7 @@ public interface ProductServ {
     SimpleResponse delete(Long id);
 
     Page<ProductResponseForGetAll> getAll(List<Category> categories, Integer minPrice, Integer maxPrice, int page, int size, String sortBy, String order);
+
+
+    ProductResponseForGetById getProductById(Long id);
 }

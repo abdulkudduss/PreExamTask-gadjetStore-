@@ -2,6 +2,7 @@ package aks.level2_preexamtask.entities;
 
 import aks.level2_preexamtask.enums.Role;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

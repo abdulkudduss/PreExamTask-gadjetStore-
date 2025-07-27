@@ -1,5 +1,6 @@
 package aks.level2_preexamtask.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,7 +21,9 @@ public class Comment {
     String text;
     ZonedDateTime createdDate;
     @ManyToOne
+    @JsonIgnore
     User user;
     @ManyToOne
+    @JsonIgnore
     Product product;
 }

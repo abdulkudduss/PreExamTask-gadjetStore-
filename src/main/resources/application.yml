@@ -20,3 +20,11 @@ spring:
       path: /v3/api-docs
 server:
   port: 8082
+logging:
+  level:
+    root: INFO                      # Общий уровень логирования
+    org.springframework: ERROR      # Ошибки внутри Spring Framework
+    org.hibernate.SQL: DEBUG        # Показывает SQL-запросы
+    org.hibernate.type.descriptor.sql: TRACE  # Показывает значения параметров в SQL
+    aks.level2_preexamtask: DEBUG   # Твой код: можно включить отладку
+
