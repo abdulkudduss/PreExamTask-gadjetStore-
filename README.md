@@ -18,7 +18,7 @@
 ---
 ## 📐 ER-диаграмма
 
-![ER-диаграмма]( images/er-diagram.jpg )
+![ER-диаграмма]( src/main/resourses/images/er-diagram.jpg )
 ---
 ## 📐 Архитектура
 
