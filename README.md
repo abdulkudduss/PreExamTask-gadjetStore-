@@ -102,7 +102,7 @@
 ## 📌 Установка и запуск
 
 ```bash
-git clone https://github.com/твой-аккаунт/название-проекта.git
+git clone https://github.com/abdulkudduss/PreExamTask-gadjetStore-.git
 cd название-проекта
 ./mvnw clean install
 
