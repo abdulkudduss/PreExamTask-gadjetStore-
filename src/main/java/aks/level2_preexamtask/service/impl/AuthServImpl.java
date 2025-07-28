@@ -5,12 +5,14 @@ import aks.level2_preexamtask.dto.SimpleResponse;
 import aks.level2_preexamtask.dto.authDto.response.SignInResponse;
 import aks.level2_preexamtask.dto.authDto.request.SignInRequest;
 import aks.level2_preexamtask.dto.authDto.request.SignUpRequest;
+import aks.level2_preexamtask.entities.Basket;
 import aks.level2_preexamtask.entities.User;
 import aks.level2_preexamtask.enums.Role;
 import aks.level2_preexamtask.exceptions.AlreadyExistException;
 
 import aks.level2_preexamtask.mapper.auth.SignInRequestMapperr;
 import aks.level2_preexamtask.mapper.auth.SignUpRequestMapperr;
+import aks.level2_preexamtask.repositories.BasketRepo;
 import aks.level2_preexamtask.repositories.UserRepo;
 import aks.level2_preexamtask.service.AuthService;
 import org.springframework.http.HttpStatus;
@@ -22,19 +24,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 
 
 @Service
 public class AuthServImpl implements AuthService {
+    private final BasketRepo basketRepo;
     private final UserRepo userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authManager;
     private final JwtUtil jwtUtil;
     private final  SignInRequestMapperr signInRequestMapper;
   private final   SignUpRequestMapperr signUpRequestMapper;
-    public AuthServImpl(UserRepo userRepository, PasswordEncoder passwordEncoder,
+    public AuthServImpl(BasketRepo basketRepo, UserRepo userRepository, PasswordEncoder passwordEncoder,
                         AuthenticationManager authManager, JwtUtil jwtUtil,
                         SignInRequestMapperr signInRequestMapper, SignUpRequestMapperr signUpRequestMapper) {
+        this.basketRepo = basketRepo;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authManager = authManager;
@@ -58,8 +63,12 @@ public class AuthServImpl implements AuthService {
         newUser.setRole(Role.USER);
         newUser.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         newUser.setSignUpDate(ZonedDateTime.now());
-     //   System.out.println("\n\t+++"+newUser);
+        //   System.out.println("\n\t+++"+newUser);
         userRepository.save(newUser);
+        Basket basket = new Basket();
+        basket.setUser(newUser);
+        basket.setProducts(new ArrayList<>());
+        basketRepo.save(basket);
         return new SimpleResponse(HttpStatus.CREATED,"Success ! You Can Log In Now!");
     }
 

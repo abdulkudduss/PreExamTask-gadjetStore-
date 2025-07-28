@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class Basket {
     @OneToOne
     User user;
     @ManyToMany
-    List<Product> products;
+    List<Product> products = new ArrayList<>();
 
 
 }

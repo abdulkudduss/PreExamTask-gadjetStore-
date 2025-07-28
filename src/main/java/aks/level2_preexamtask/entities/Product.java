@@ -25,7 +25,6 @@ public class Product {
     @ElementCollection
     private List<String> images;
     private String description;
-    private boolean isFavorite;
     private String madeIn;
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -77,13 +76,6 @@ public class Product {
         this.description = description;
     }
 
-    public boolean isFavorite() {
-        return isFavorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
-    }
 
     public String getMadeIn() {
         return madeIn;

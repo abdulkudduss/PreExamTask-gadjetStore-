@@ -21,7 +21,6 @@ public class ProductResponseForGetById {
     int price;
     List<String> images;
     String description;
-    boolean isFavorite;
     String madeIn;
     Category category;
     Brand brand;
@@ -31,13 +30,12 @@ public class ProductResponseForGetById {
     public ProductResponseForGetById() {
     }
 
-    public ProductResponseForGetById(Long id, String name, int price, List<String> images, String description, boolean isFavorite, String madeIn, Category category, Brand brand, int likesCount, List<Comment> comments) {
+    public ProductResponseForGetById(Long id, String name, int price, List<String> images, String description,  String madeIn, Category category, Brand brand, int likesCount, List<Comment> comments) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.images = images;
         this.description = description;
-        this.isFavorite = isFavorite;
         this.madeIn = madeIn;
         this.category = category;
         this.brand = brand;
@@ -85,13 +83,7 @@ public class ProductResponseForGetById {
         this.description = description;
     }
 
-    public boolean isFavorite() {
-        return isFavorite;
-    }
 
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
-    }
 
     public String getMadeIn() {
         return madeIn;
