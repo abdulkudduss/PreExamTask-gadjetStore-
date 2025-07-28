@@ -21,9 +21,11 @@ public class Comment {
     String text;
     ZonedDateTime createdDate;
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     User user;
     @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
     @JsonIgnore
     Product product;
 }

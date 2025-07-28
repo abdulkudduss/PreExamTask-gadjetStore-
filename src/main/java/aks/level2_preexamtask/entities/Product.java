@@ -30,11 +30,10 @@ public class Product {
     private Category category;
     @ManyToOne
     private Brand brand;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Favorite> favorites;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
-
 
     public Long getId() {
         return id;
